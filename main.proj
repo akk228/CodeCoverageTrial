@@ -37,6 +37,6 @@
     </Target>
 
     <Target Name="Coverage" DependsOnTargets="Compile">
-        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll&quot; -filter:&quot;+[*]* -[SampleLibrary.Test*]*&quot; -register:user" />
+        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll&quot; -filter:&quot;+[*]* -[SampleLibrary.Test*]*&quot; -register:user -output:xunit-coverage.xml" />
     </Target>
 </Project>
