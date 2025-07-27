@@ -1,0 +1,59 @@
+# Build results
+*bin/
+*obj/
+[Bb]uild/
+[Ll]og/
+TestResults/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.mdb
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sdf
+*.dbmdl
+*.VC.db
+*.vscode/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+*.psmdcp
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Others
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IIS Express
+*.vspscc
+*.vssscc
+*.publishsettings
+
+# Entity Framework
+Migrations/
+
+# Rider
+.idea/
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Auto-generated files
+Generated_Code/
