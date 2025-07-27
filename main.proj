@@ -7,6 +7,9 @@
     <PropertyGroup>
         <NugetExePath>.nuget\nuget.exe</NugetExePath>
         <PackagesDir>packages</PackagesDir>
+        <BinDir>bin</BinDir>
+        <TestBinDir>$(BinDir)\tests</TestBinDir>
+        <OpenCoverExePath>$(PackagesDir)\OpenCover.4.7.1221\tools\OpenCover.Console.exe</OpenCoverExePath>
     </PropertyGroup>
 
     <Target Name="Clean" BeforeTargets="RestoreNugetPackages">
@@ -31,5 +34,9 @@
             Targets="Build" 
             ContinueOnError="true"
         />
+    </Target>
+
+    <Target Name="Coverage" DependsOnTargets="Compile">
+        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll&quot; -filter:&quot;+[*]* -[SampleLibrary.Test*]*&quot; -register:user" />
     </Target>
 </Project>
