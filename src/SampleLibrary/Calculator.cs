@@ -10,8 +10,10 @@ namespace SampleLibrary
             {
                 throw new ArgumentOutOfRangeException("why r u dividing by zero, stupid fuck?");
             }
+
+            var result = number1 / number2;
             
-            return number1 / number2;
+            return result;
         }
     }
 }
