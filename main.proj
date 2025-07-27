@@ -9,6 +9,11 @@
         <PackagesDir>packages</PackagesDir>
     </PropertyGroup>
 
+    <Target Name="Clean" BeforeTargets="Clean">
+        <RemoveDir Directories="bin" />
+        <RemoveDir Directories="packages" />
+    </Target>
+
     <Target Name="RestoreNugetPackages">
         <Exec Command="$(NugetExePath) install packages.config -Output $(PackagesDir)" />
     </Target>
