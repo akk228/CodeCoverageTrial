@@ -9,7 +9,7 @@
         <PackagesDir>packages</PackagesDir>
     </PropertyGroup>
 
-    <Target Name="Clean" BeforeTargets="Clean">
+    <Target Name="Clean" BeforeTargets="RestoreNugetPackages">
         <RemoveDir Directories="bin" />
         <RemoveDir Directories="packages" />
     </Target>
@@ -19,11 +19,12 @@
     </Target>
 
     <Target Name="Compile" DependsOnTargets="RestoreNugetPackages">
-        <PropertyGroup>
-            <ProjectToBuild>src\SampleLibrary\SampleLibrary.csproj</ProjectToBuild>
-        </PropertyGroup>
+        <ItemGroup>
+            <ProjectToBuild Include="src\SampleLibrary\SampleLibrary.csproj" />
+            <ProjectToBuild Include="test\SampleLibrary.Test\SampleLibrary.Test.csproj" />
+        </ItemGroup>
         <MsBuild 
-            Projects="$(ProjectToBuild)" 
+            Projects="@(ProjectToBuild)" 
             Properties="Configuration=Debug;Platform=AnyCPU" 
             Targets="Build" 
             ContinueOnError="true"
