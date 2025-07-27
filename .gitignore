@@ -55,6 +55,7 @@ Migrations/
 coverage/
 *.coverage
 *.coveragexml
-
+xunit-coverage.xml
+!ReportGenerator_5.4.10/**
 # Auto-generated files
 Generated_Code/
