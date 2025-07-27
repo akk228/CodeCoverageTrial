@@ -27,6 +27,7 @@ TestResults/
 packages/
 *.nuspec
 *.psmdcp
+!Nuget/nuget.exe
 
 # Resharper
 _ReSharper*/
