@@ -33,9 +33,18 @@
                  ContinueOnError="true" />
     </Target>
 
+    <PropertyGroup>
+        <OpenCover>&quot;$(OpenCoverExePath)&quot;</OpenCover>
+        <XUnitRunner>-target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot;</XUnitRunner>
+        <XUnitArgs>-targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll -noshadow&quot;</XUnitArgs>
+        <OpenCoverFilter>-filter:&quot;+[SampleLibrary]* -[SampleLibrary.Test*]*&quot;</OpenCoverFilter>
+        <OpenCoverUser>-register:user</OpenCoverUser>
+        <OpenCoverOutput>-output:xunit-coverage.xml</OpenCoverOutput>
+        <OpenCoverCmd>$(OpenCover) $(XUnitRunner) $(XUnitArgs) $(OpenCoverFilter) $(OpenCoverUser) $(OpenCoverOutput)</OpenCoverCmd>
+    </PropertyGroup>
     <Target Name="Coverage" DependsOnTargets="Compile">
         <Delete Files="xunit-coverage.xml" Condition="Exists('xunit-coverage.xml')" />
-        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll -noshadow&quot; -filter:&quot;+[SampleLibrary]* -[SampleLibrary.Test*]*&quot; -register:user -output:xunit-coverage.xml" />
+        <Exec Command="$(OpenCoverCmd)" />
     </Target>
 
     <Target Name="GenerateCoverageReport" DependsOnTargets="Coverage">
