@@ -28,15 +28,24 @@
             <ProjectToBuild Include="src\SampleLibrary\SampleLibrary.csproj" />
             <ProjectToBuild Include="test\SampleLibrary.Test\SampleLibrary.Test.csproj" />
         </ItemGroup>
-        <MsBuild 
-            Projects="@(ProjectToBuild)" 
-            Properties="Configuration=Debug;Platform=AnyCPU" 
-            Targets="Build" 
-            ContinueOnError="true"
-        />
+
+        <MsBuild Projects="@(ProjectToBuild)" 
+                 Properties="Configuration=Debug;Platform=AnyCPU" 
+                 Targets="Build" 
+                 ContinueOnError="true" />
     </Target>
 
     <Target Name="Coverage" DependsOnTargets="Compile">
-        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll&quot; -filter:&quot;+[*]* -[SampleLibrary.Test*]*&quot; -register:user -output:xunit-coverage.xml" />
+        <Delete Files="xunit-coverage.xml"
+                Condition="Exists('xunit-coverage.xml')" />
+
+        <Exec Command="&quot;$(OpenCoverExePath)&quot; -target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; -targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll -noshadow&quot; -filter:&quot;+[SampleLibrary*]*&quot; -register:user -output:xunit-coverage.xml" />
+    </Target>
+
+    <Target Name="GenerateCoverageReport" DependsOnTargets="Coverage">
+        <RemoveDir Directories="coverage-report" Condition="Exists('coverage-report')" />
+        <MakeDir Directories="coverage-report" />
+        <Delete Files="coverage-report\*" Condition="Exists('coverage-report\*')" />
+        <Exec Command="&quot;ReportGenerator_5.4.10\net47\ReportGenerator.exe&quot; -reports:xunit-coverage.xml -targetdir:coverage-report" />
     </Target>
 </Project>
