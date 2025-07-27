@@ -1,0 +1,27 @@
+<Project ToolsVersion="15.0" DefaultTargets="Compile" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import 
+        Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+        Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"
+    />
+
+    <PropertyGroup>
+        <NugetExePath>Nuget\nuget.exe</NugetExePath>
+        <PackagesDir>packages</PackagesDir>
+    </PropertyGroup>
+
+    <Target Name="RestoreNugetPackages">
+        <Exec Command="$(NugetExePath) install packages.config -Output $(PackagesDir)" />
+    </Target>
+
+    <Target Name="Compile" DependsOnTargets="RestoreNugetPackages">
+        <PropertyGroup>
+            <ProjectToBuild>src\SampleLibrary\SampleLibrary.csproj</ProjectToBuild>
+        </PropertyGroup>
+        <MsBuild 
+            Projects="$(ProjectToBuild)" 
+            Properties="Configuration=Debug;Platform=AnyCPU" 
+            Targets="Build" 
+            ContinueOnError="true"
+        />
+    </Target>
+</Project>
