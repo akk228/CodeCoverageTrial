@@ -57,17 +57,18 @@
     <PropertyGroup>
         <AltCoverExe>$(PackagesDir)\altcover.9.0.1\tools\net472\AltCover.exe</AltCoverExe>
         <AltCoverReport>altcover-coverage.xml</AltCoverReport>
+        <FilterRegex>^(?!SampleLibrary$).+</FilterRegex>
     </PropertyGroup>
 
     <Target Name="AltCoverInstrument" DependsOnTargets="Compile">
-        <Exec Command="&quot;$(AltCoverExe)&quot; --inputDirectory &quot;$(TestBinDir)&quot; --outputDirectory &quot;$(TestBinDir)\_altcover&quot; --report &quot;$(AltCoverReport)&quot; --assemblyExcludeFilter &quot;SampleLibrary.Test&quot;" />
+        <Exec Command="&quot;$(AltCoverExe)&quot; --inputDirectory &quot;$(TestBinDir)&quot; --outputDirectory &quot;$(TestBinDir)\_altcover&quot; --report &quot;$(AltCoverReport)&quot; --assemblyFilter &quot;$(FilterRegex)&quot;" />
     </Target>
 
     <Target Name="AltCoverTest" DependsOnTargets="AltCoverInstrument">
         <Exec Command="&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; &quot;$(TestBinDir)\_altcover\SampleLibrary.Test.dll&quot; -noshadow" />
     </Target>
 
-    <Target Name="AltCoverReport">
+    <Target Name="AltCoverReport" DependsOnTargets="AltCoverTest">
         <RemoveDir Directories="coverage-report" Condition="Exists('coverage-report')" />
         <MakeDir Directories="coverage-report" />
         <Delete Files="coverage-report\*" Condition="Exists('coverage-report\*')" />
