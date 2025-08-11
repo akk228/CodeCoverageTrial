@@ -1,0 +1,22 @@
+<Project ToolsVersion="15.0"
+         DefaultTargets="AltCoverTest"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+
+    <PropertyGroup>
+        <AltCoverExe>$(PackagesDir)\altcover.9.0.1\tools\net472\AltCover.exe</AltCoverExe>
+        <FilterRegex>^(?!SampleLibrary$).+</FilterRegex>
+        <AltCoverReport>$(ReportFileName)</AltCoverReport>
+    </PropertyGroup>
+
+    <Target Name="AltCoverInstrument"
+            DependsOnTargets="Compile" >
+
+        <Exec Command="&quot;$(AltCoverExe)&quot; --inputDirectory &quot;$(TestBinDir)&quot; --outputDirectory &quot;$(TestBinDir)\_altcover&quot; --report &quot;$(AltCoverReport)&quot; --assemblyFilter &quot;$(FilterRegex)&quot;" />
+    </Target>
+
+    <Target Name="AltCoverTest"
+            DependsOnTargets="AltCoverInstrument" >
+
+        <Exec Command="&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; &quot;$(TestBinDir)\_altcover\SampleLibrary.Test.dll&quot; -noshadow" />
+    </Target>
+</Project>
