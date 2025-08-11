@@ -12,6 +12,7 @@
 
     <Import Project="$(WorkingDirectory)\build\test-coverage\report.targets" />
     <Import Project="$(WorkingDirectory)\build\test-coverage\alt_cover_tests.targets" />
+    <Import Project="$(WorkingDirectory)\build\test-coverage\OpenCover_tests.targets" />
     <Import Project="$(WorkingDirectory)\build\compile.targets" />
     <Import Project="$(WorkingDirectory)\build\nuget.targets" />
 
