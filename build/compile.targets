@@ -1,17 +1,13 @@
 <Project ToolsVersion="15.0" DefaultTargets="Compile" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="CleanBin">
-        <RemoveDir
-            Directories="$(BinDir)"
-            Condition="Exists('$(BinDir)')"
-        />
-        
+        <RemoveDir Directories="$(BinDir)"
+                   Condition="Exists('$(BinDir)')" />
+
         <MakeDir Directories="$(BinDir)" />
     </Target>
     
-    <Target
-        Name="Compile"
-        DependsOnTargets="CleanBin;RestoreNugetPackages"
-    >
+    <Target Name="Compile"
+            DependsOnTargets="CleanBin;RestoreNugetPackages" >
 
         <ItemGroup>
             <ProjectToBuild Include="src\SampleLibrary\SampleLibrary.csproj" />
