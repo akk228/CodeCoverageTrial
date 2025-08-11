@@ -25,13 +25,6 @@
         <Exec Command="$(OpenCoverCmd)" />
     </Target>
 
-    <Target Name="GenerateCoverageReport" DependsOnTargets="Coverage">
-        <RemoveDir Directories="coverage-report" Condition="Exists('coverage-report')" />
-        <MakeDir Directories="coverage-report" />
-        <Delete Files="coverage-report\*" Condition="Exists('coverage-report\*')" />
-        <Exec Command="&quot;ReportGenerator_5.4.10\net47\ReportGenerator.exe&quot; -reports:xunit-coverage.xml -targetdir:coverage-report" />
-    </Target>
-
     <PropertyGroup>
         <AltCoverExe>$(PackagesDir)\altcover.9.0.1\tools\net472\AltCover.exe</AltCoverExe>
         <AltCoverReport>altcover-coverage.xml</AltCoverReport>
@@ -44,12 +37,5 @@
 
     <Target Name="AltCoverTest" DependsOnTargets="AltCoverInstrument">
         <Exec Command="&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot; &quot;$(TestBinDir)\_altcover\SampleLibrary.Test.dll&quot; -noshadow" />
-    </Target>
-
-    <Target Name="AltCoverReport" DependsOnTargets="AltCoverTest">
-        <RemoveDir Directories="coverage-report" Condition="Exists('coverage-report')" />
-        <MakeDir Directories="coverage-report" />
-        <Delete Files="coverage-report\*" Condition="Exists('coverage-report\*')" />
-        <Exec Command="&quot;ReportGenerator_5.4.10\net47\ReportGenerator.exe&quot; -reports:altcover-coverage.xml -targetdir:coverage-report" />
     </Target>
 </Project>

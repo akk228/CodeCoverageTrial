@@ -1,0 +1,20 @@
+<Project ToolsVersion="15.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <ReportGeneratorPath>$(WorkingDirectory)\ReportGenerator_5.4.10\net47\ReportGenerator.exe</ReportGeneratorPath>
+        <ReportDirectory>$(WorkingDirectory)\coverage-report</ReportDirectory>
+        <ReportFileName>xunit-coverage.xml</ReportFileName>
+    </PropertyGroup>
+
+    <Target Name="GenerateCoverageReport" DependsOnTargets="Coverage">
+        <RemoveDir Directories="$(ReportDirectory)"
+                   Condition="Exists('$(ReportDirectory)')" />
+
+        <MakeDir Directories="$(ReportDirectory)" />
+        <Delete Files="$(ReportDirectory)\*"
+                Condition="Exists('$(ReportDirectory)\*')" />
+
+        <Exec Command="&quot;$(ReportGeneratorPath)&quot; -reports:$(ReportFileName) -targetdir:$(ReportDirectory)" />
+    </Target>
+</Project>
