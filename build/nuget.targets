@@ -1,0 +1,18 @@
+<Project ToolsVersion="15.0" DefaultTargets="Compile" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="CleanPackages">
+        <RemoveDir
+            Directories="$(PackagesDir)"
+            Condition="Exists('$(PackagesDir)')"
+        />
+
+        <MakeDir Directories="$(PackagesDir)" />
+    </Target>
+    
+    <Target
+        Name="RestoreNugetPackages"
+        DependsOnTargets="CleanPackages"
+    >
+
+        <Exec Command="$(NugetExePath) install packages.config -Output $(PackagesDir)" />
+    </Target>
+</Project>

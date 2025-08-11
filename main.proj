@@ -3,35 +3,13 @@
             Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
 
     <PropertyGroup>
-        <NugetExePath>.nuget\nuget.exe</NugetExePath>
-        <PackagesDir>packages</PackagesDir>
-        <BinDir>bin</BinDir>
+        <WorkingDirectory>$(MSBuildProjectDirectory)</WorkingDirectory>
+        <NugetExePath>$(WorkingDirectory)\.nuget\nuget.exe</NugetExePath>
+        <PackagesDir>$(WorkingDirectory)\packages</PackagesDir>
+        <BinDir>$(WorkingDirectory)\bin</BinDir>
         <TestBinDir>$(BinDir)\tests</TestBinDir>
         <OpenCoverExePath>$(PackagesDir)\OpenCover.4.7.1221\tools\OpenCover.Console.exe</OpenCoverExePath>
     </PropertyGroup>
-
-    <Target Name="Clean" BeforeTargets="RestoreNugetPackages">
-        <RemoveDir Directories="bin" />
-        <RemoveDir Directories="packages" />
-    </Target>
-
-    <Target Name="RestoreNugetPackages">
-        <MakeDir Directories="$(PackagesDir)" />
-        <Exec Command="if not exist $(NugetExePath) mkdir Nuget" />
-        <Exec Command="$(NugetExePath) install packages.config -Output $(PackagesDir)" />
-    </Target>
-
-    <Target Name="Compile" DependsOnTargets="RestoreNugetPackages">
-        <ItemGroup>
-            <ProjectToBuild Include="src\SampleLibrary\SampleLibrary.csproj" />
-            <ProjectToBuild Include="test\SampleLibrary.Test\SampleLibrary.Test.csproj" />
-        </ItemGroup>
-
-        <MsBuild Projects="@(ProjectToBuild)"
-                 Properties="Configuration=Debug;Platform=AnyCPU"
-                 Targets="Build"
-                 ContinueOnError="true" />
-    </Target>
 
     <PropertyGroup>
         <OpenCover>&quot;$(OpenCoverExePath)&quot;</OpenCover>

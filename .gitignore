@@ -1,7 +1,6 @@
 # Build results
 *bin/
 *obj/
-[Bb]uild/
 [Ll]og/
 TestResults/
 *.exe
