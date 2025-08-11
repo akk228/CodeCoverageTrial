@@ -7,7 +7,7 @@
         <ReportFileName>xunit-coverage.xml</ReportFileName>
     </PropertyGroup>
 
-    <Target Name="GenerateCoverageReport" DependsOnTargets="Coverage">
+    <Target Name="GenerateCoverageReport">
         <RemoveDir Directories="$(ReportDirectory)"
                    Condition="Exists('$(ReportDirectory)')" />
 

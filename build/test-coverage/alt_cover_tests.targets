@@ -8,9 +8,7 @@
         <AltCoverReport>$(ReportFileName)</AltCoverReport>
     </PropertyGroup>
 
-    <Target Name="AltCoverInstrument"
-            DependsOnTargets="Compile" >
-
+    <Target Name="AltCoverInstrument">
         <Exec Command="&quot;$(AltCoverExe)&quot; --inputDirectory &quot;$(TestBinDir)&quot; --outputDirectory &quot;$(TestBinDir)\_altcover&quot; --report &quot;$(AltCoverReport)&quot; --assemblyFilter &quot;$(FilterRegex)&quot;" />
     </Target>
 

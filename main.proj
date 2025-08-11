@@ -11,7 +11,18 @@
         <OpenCoverExePath>$(PackagesDir)\OpenCover.4.7.1221\tools\OpenCover.Console.exe</OpenCoverExePath>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <Import Project="$(WorkingDirectory)\build\test-coverage\report.targets" />
+    <Import Project="$(WorkingDirectory)\build\test-coverage\alt_cover_tests.targets" />
+    <Import Project="$(WorkingDirectory)\build\compile.targets" />
+    <Import Project="$(WorkingDirectory)\build\nuget.targets" />
+
+    <Target Name="BuildAndCoverage" DependsOnTargets="Compile;Coverage;GenerateCoverageReport">
+        <Message Text="Build and coverage completed successfully." Importance="high" />
+    </Target>
+
+    <Target Name="Coverage" DependsOnTargets="AltCoverTest"/>
+    
+    <!-- <PropertyGroup>
         <OpenCover>&quot;$(OpenCoverExePath)&quot;</OpenCover>
         <XUnitRunner>-target:&quot;$(PackagesDir)\xunit.runner.console.2.4.2\tools\net472\xunit.console.exe&quot;</XUnitRunner>
         <XUnitArgs>-targetargs:&quot;$(TestBinDir)\SampleLibrary.Test.dll -noshadow&quot;</XUnitArgs>
@@ -23,5 +34,5 @@
     <Target Name="Coverage" DependsOnTargets="Compile">
         <Delete Files="xunit-coverage.xml" Condition="Exists('xunit-coverage.xml')" />
         <Exec Command="$(OpenCoverCmd)" />
-    </Target>
+    </Target> -->
 </Project>
