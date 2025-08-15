@@ -15,5 +15,10 @@ namespace SampleLibrary
             
             return result;
         }
+
+        public double Add(double number1, double number2)
+        {
+            return number1 + number2;
+        }
     }
 }
