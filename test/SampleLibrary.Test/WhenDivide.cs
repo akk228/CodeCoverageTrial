@@ -12,5 +12,12 @@ namespace SampleLibrary.Test
             var result = calculator.Divide(2, 4);
             Assert.Equal((double)0.5, result);
         }
+
+        [Fact]
+        public void DivisionByZeroThrowsException()
+        {
+            var calculator = new Calculator();
+            Assert.Throws<DivideByZeroException>(() => calculator.Divide(2, 0));
+        }
     }
 }
