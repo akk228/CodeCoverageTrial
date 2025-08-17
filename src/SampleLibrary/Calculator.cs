@@ -8,7 +8,7 @@ namespace SampleLibrary
         {
             if (number2 == 0)
             {
-                throw new ArgumentOutOfRangeException("why r u dividing by zero, stupid fuck?");
+                throw new ArgumentOutOfRangeException("Division by zero is not allowed.");
             }
 
             var result = number1 / number2;
